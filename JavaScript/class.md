@@ -145,7 +145,7 @@ instance에서 methods로는 직접적으로 접근 가능하지만 static인 �
     })();
 
     function Person(name, age) { // Person 생성자
-        this.name = name || '이름없음';
+        this.nameㅡ = name || '이름없음';
         this.age = age || '나이모름';
     }
 
