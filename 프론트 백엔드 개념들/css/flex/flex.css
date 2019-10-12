@@ -1,0 +1,38 @@
+*{
+    margin: 0;
+    padding : 0;
+}
+.flex-container {  /* 컨테이너의 값 줄 크기 너멍가면 줄 바꾸게 하기 위해. wrap 사용. 시작점은 처음부터.*/
+    display : flex;
+    height : 400px;
+    justify-content: flex-start;
+    align-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.flex-item { /* width 가 있어서 창의 크기를 줄이면 줄이 바뀔 수 있따. 옆에 살짝 띄우기 위해 margin-right 사용. 위에서 space-around 같은걸로 띄우려고 했으나 줄바뀔 때 가운데에 위치하는게 보기 싫어서 바꿈. */
+    width : 150px;
+    height : 200px;
+    margin-right : 20px;
+}
+@media (max-width: 500px){ /* 전체 화면의 크기가 500px 보다 낮을 때.. 설정해줄 값들. */
+    .flex-item{
+        width : 100%;
+        margin : 0
+    }
+}
+
+.item1 {
+    background : red;
+}
+.item2 {
+    background : orange;
+}
+
+.item3 {
+    background : greenyellow;
+}
+
+.item4 {
+    background : skyblue;
+}
