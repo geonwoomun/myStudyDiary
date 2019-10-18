@@ -29,7 +29,7 @@ useInput은 input 태그 안의 value와 onChange 등을 간단하게 쓰기 위
 {...name} 이면 {value, onChange}가 나오고 value랑 onChange가 같으니깐
 { value = value , onChange= onChange} 이런식으로 해석 되서 그런거 같긴하다.
      
-    ---------------------------------------------------------------------
+---------------------------------------------------------------------
 ### useInput part 2
 
 custom hook 인 useInput에 검증 기능까지 추가 해본다.
