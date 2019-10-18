@@ -66,3 +66,32 @@ index skip scan, index fast full scan도 있으니깐 참고하면 좋다.
 인덱스 손익분기점이라는게 있는데 테이블이 가지고 있는 전체 데이터양의 10에서 15프로
 이내의 데이터가 출력이 될때만 인덱스를 타는게 효율적이고 
 그 이상이 될때는 오히려 풀스캔을 하는게 더 빠르다.
+
+----------------------------------------------------------------------------
+
+### 인덱스를 실제로 어떻게 사용하면 되는지.
+
+    CREATE INDEX IDX_SB1 ON STARBUCKS_ORDER (REG_NAME);
+
+으로 STARTBUCKS_ORDER테이블의 REG_NAME을 인덱스로하는 인덱스명이 IDX_SB1인 인덱스를 만들 수 있다.
+
+    SELECT * FROM STARBUCKS_ORDER WHERE REG_NAME = '봄';
+
+그냥 이렇게 하면 TABLE FULL SCAN을 했지만 위의 인덱스를 만들고 나서 실행을 하면 INDEX RANGE SCAN을 하는것을 볼 수 있다.
+
+테이블 실행계획 확인은 
+    SELECT * FROM TABLE(DBMS_XPLAN.DISPLAY_CURSOR(NULL, NULL, 'ALLSTATS LAST'))
+
+을 하면 되는 것 같다.
+
+    SELECT /* +INDEX(STARBUCKS_ORDER IDX_SB1)*/ * FROM STARBUCKS_ORDER WHERE REG_NAME = '봄';
+
+이런식으로 적으면 오라클 힌트라서 이것을 실행할 때는 이 인덱스를 타라고 명시해주는 것 같다.
+하지만 이 오라클 힌트를 무분별하게 남발하는건 지양해야한다고 했다.
+
+왜냐하면 옵티마이저가 알아서 인덱스가 나을지 테이블 풀스캔이 좋을지 판단을 해서 실행하게 되어있기 때문에..
+옵티마이저는 CBO라고 해서 실행을 할 때 비용이 덜 드는 방향으로 알아서 한다.
+다만 한 테이블에 인덱스가 너무 많이 생성이 되어있으면 옵티마이저가 오류가 나서 판단미스가 날 때가 있는데 이 때 꼭 이 인덱스를 타라고 오라클힌트로 명시를 해주면 된다.
+
+
+
