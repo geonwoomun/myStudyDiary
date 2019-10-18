@@ -24,10 +24,10 @@ useInput은 input 태그 안의 value와 onChange 등을 간단하게 쓰기 위
         )
     }
 
-    이렇게 적으면 <input value = {name.value} onChange = {name.onChange}/> 랑 같다고 했다. 이게 왜 같은지 잘 이해가 안간다..
-    {...name} 이면 {name.value, name.onChange} 인거 같은데 value = {name.value} onChange = {name.onChange}랑 같다는게...
-    {...name} 이면 {value, onChange}가 나오고 value랑 onChange가 같으니깐
-    { value = value , onChange= onChange} 이런식으로 해석 되서 그런거 같긴하다.
+이렇게 적으면 <input value = {name.value} onChange = {name.onChange}/> 랑 같다고 했다. 이게 왜 같은지 잘 이해가 안간다..
+{...name} 이면 {name.value, name.onChange} 인거 같은데 value = {name.value} onChange = {name.onChange}랑 같다는게...
+{...name} 이면 {value, onChange}가 나오고 value랑 onChange가 같으니깐
+{ value = value , onChange= onChange} 이런식으로 해석 되서 그런거 같긴하다.
      
     ---------------------------------------------------------------------
 ### useInput part 2
