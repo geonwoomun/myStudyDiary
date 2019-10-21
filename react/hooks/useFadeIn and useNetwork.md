@@ -62,7 +62,7 @@ navigator가 online 또는 offline이 되는걸 막아준다.
         const handleNetworkChange = online => {
             console.log(online ? "We just went online" : "We are offline");
         }
-        const onLine = useNetwork(handleNetworkChange);
+        const onLine = useNetwork(handleNetworkChange); // hooks는 뭔가 state값을 return으로 받고 실행되는 건 hooks가 다하고...? 뭔가 그냥 js로 //짰을 때랑 다르게 두개가 합쳐진 느낌이랄까
 
         return (
             <div className="App">
