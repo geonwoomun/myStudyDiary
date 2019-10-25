@@ -5,7 +5,7 @@
 
 useInput은 input 태그 안의 value와 onChange 등을 간단하게 쓰기 위해 개인적으로 만든 hook이다 .
 
-    const useInput = initalValue => {
+    const useInput = initialValue => {
         const [ value, setValue ] = useState(initialValue);
         const onChange = event => {
             console.log(event.target);
