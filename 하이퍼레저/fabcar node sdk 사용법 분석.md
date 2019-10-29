@@ -39,7 +39,7 @@
 
         console.log('An identity for the user "user1" does not exist in the wallet')
 
-        console.log('Run the registerUser.js application before retrying')
+        console.log('Run `the registerUser.js application before retrying')
 
         return
 
