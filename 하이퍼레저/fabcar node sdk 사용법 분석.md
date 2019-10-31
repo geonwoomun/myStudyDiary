@@ -104,4 +104,76 @@
     `<br><br><a href="/"><button type="button" >Main Page</button></a>`)
     })
 
+
+그리고 createcar 즉 새로운 차를 만드는 코드를 분석 해보겠다.
+
+    // Create car handle
+
+    app.post('/api/createcar/', async function (req, res) {   // /api/createcar 주소로 정보를 보냈을 때 함수 실행.
+
+    try {
+        var carno = req.body.carno   // body에 담겨있는 정보들.
+        var colour = req.body.colour
+        var make = req.body.make
+        var model = req.body.model
+        var owner = req.body.owner
+
+        // Create a new file system based wallet for managing identities.
+        const walletPath = path.join(process.cwd(), 'wallet')  // wallet이 있는 주소
+        const wallet = new FileSystemWallet(walletPath)  // 그 주소로 wallet을 만든다.
+        console.log(`Wallet path: ${walletPath}`)
+
+        // Check to see if we've already enrolled the user.
+        const userExists = await wallet.exists('user1'); // wallet 안에 user1이 존재 하는가?
+        if (!userExists) { // 존재 안하면 오류를 보여줌.
+
+            console.log('An identity for the user "user1" does not exist in the wallet')
+
+            console.log('Run the registerUser.js application before retrying')
+
+            return;
+
+        }
+        // Create a new gateway for connecting to our peer node.
+        const gateway = new Gateway(); // peer node에 연결 할 gateway를 만듦.
+        await gateway.connect(ccp, { wallet, identity: 'user1', discovery: { enabled: false } }); // 해당 정보로 gateway를 연결한다.
+
+        // Get the network (channel) our contract is deployed to.
+        const network = await gateway.getNetwork('mychannel');    // gateway의 mychannel 이라는 network를 가지고온다.
+        // Get the contract from the network.
+        const contract = network.getContract('fabcar'); // 거기에 fabcar라는 contract를 가져온다.
+
+        // Submit the specified transaction.    // 5개의 인자를 받아야 한다.
+        // createCar transaction - requires 5 argument, ex: ('createCar', 'CAR12', 'Honda', 'Accord', 'Black', 'Tom')
+        // changeCarOwner transaction - requires 2 args , ex: ('changeCarOwner', 'CAR10', 'Dave')
+        // await contract.submitTransaction('createCar', 'CAR11', 'Hnda', 'Aord', 'Bla', 'Tom')
+
+        console.log(carno, make, model, colour, owner)
+        await contract.submitTransaction('createCar', carno, make, model, colour, owner) // fabcar contract에 transaction을 제출. 'createcar'고 나머지 인자들.
+        console.log('Transaction has been submitted')
+
+
+        // Disconnect from the gateway.
+        await gateway.disconnect() // gateway 끊음.
+
+        // res.status(200).json({response: 'Transaction has been submitted'})  // 그후 동작들.
+
+        res.send('<script type="text/javascript">var r = alert("Transaction has been submitted. "); window.location.href="/" ; </script>')
+
+        // res.redirect('/')
+
+        } catch (error) {
+
+            console.error(`Failed to submit transaction: ${error}`)
+
+            res.status(400).json(error)
+
+        }  
+    })
+
+
+그 외에 changeowner도 똑같이 작동한다. 중요한 것은
+
+fabcar까지 contract를 연결 한다음 await contract.submitTransaction할 때 첫번재 인자로 무엇을 할지를 넣는 것이고 그 다음 인자로 정확한 값들을 넘겨주는 것이 중요한 것 같다.
+
 출처 :https://cafe.naver.com/hyperledgerstudy
