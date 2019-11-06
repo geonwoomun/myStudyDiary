@@ -1,4 +1,4 @@
-const { createStore }  = require('redux');
+const { createStore, compose, applyMiddleware }  = require('redux');
 
 const reducer = require('./reducers');
 const { logIn, logOut } = require('./actions/user');
@@ -15,8 +15,34 @@ const initialState = { // 구조를 잘 짜야함. 이 구조에 따라 액션, 
     // 불변성을 유지할 때 얕은 복사가 되기 때문에 메모리를 엄청나게 잡아 먹고 그러진 않는다.
 };
 
+const firstMiddleware = (store) => (dispatch) => (action) => { //함수가 여러번 중첩되어있음.
+    // 고차함수.. store와 next 사이에서 무슨 일을 하고 싶다면 1,2 () 사이에서
+    // next와 action 사이에서 무엇을 하고 싶다면 2,3 사이에서 action쪽에서 하고 싶으면 action 에서
+    // 실행되는 시점의 차이가 있음.
 
-const store = createStore(reducer, initialState); 
+    console.log("action 로깅",action); // 부가적인 기능. 이곳에 여러 기능을 넣으면 됨.
+    dispatch(action); //기본동작 , next로 적을 수도 잇음.
+    // dispatch 하고 난후 부가기능 추가하고 싶으면 여기.
+    console.log("action 끝");
+}
+
+// 비동기를 제어하는 미들웨어 중에는 thunk 와 saga가 유명하다.
+const thunkMiddleware = (store) => (dispatch) => (action) => {
+    if (typeof action === 'function') {// 비동기, 동기이면 객체다. 
+        return action(store.dispatch, store.getState);
+    // 비동기일때는 thunk가 실행을 해줌.
+    }    
+    return dispatch(action); // 동기일땐 바로 dispatch(action)
+};
+
+const enhancer =  // compose 합성하는 함수.이거 말고 더 추가할때 compose 유용, 함수를 합성해줌.
+    applyMiddleware(firstMiddleware); 
+
+
+const store = createStore(reducer, initialState, enhancer); 
+store.subscribe(() => {   // 액션 실행 , subscribe, 액션 끝 순서..
+    console.log('changed');
+})
 //////////////////////////////////////////
 // 위는 미리 만들어 둬야 하는것. 밑에는 화면에서 필요할 때마다 실행하는 것.
 console.log(store.getState());
