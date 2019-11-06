@@ -57,7 +57,7 @@ state를 바꾸기 위해서 action을 만들어준다. action은 state를 어�
         a -> b
     }
 
-a를 b로 바꾼다는 액션을 하나 만든다. 그 액션을 실행 실행은 dispatch라고 한다. 액션을 실행하게 되면 compA의 'a'가 'b'로 바뀐다. state를 action의 어떻게 바꾼다인데, dispatch가 실행해서 그것을 state를 바꾼다.
+a를 b로 바꾼다는 액션을 하나 만든다. 그 액션을 실행 실행은 dispatch라고 한다. 액션을 실행하게 되면 compA의 'a'가 'b'로 바뀐다. action은 state를 어떻게 바꾼다인데, dispatch가 실행해서 그것을 state를 바꾼다.
 dispatch도 함수. dispatch(action) 이런식으로 실행을 하는데 기록이 남는다. history가 남음. 에러들을 찾아낼 때 엄청 편하다. 에러가 엄청 적게 난다. 개발 할때도 기록. 기록이 남기 때문에 타임머신 기능을 쓸 수가 있다.
 개발하다가 이 action이전으로 돌가가고 싶다고 하면 돌아갈 수 있다. redux를 쓰면 에러가 거의 안난다. 그러면 내가 정말 멍청했구나라는 생각이 들게된다. 
 
