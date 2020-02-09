@@ -1,20 +1,16 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import {render} from '@testing-library/react';
 import Profile from './Profile';
 
 describe('<Profile/>', () => {
     it('matches snapshot', () => {
-        const wrapper = mount(<Profile username="mun" name="문건우"/>);
-        expect(wrapper).toMatchSnapshot();
+        const utils = render(<Profile username="mun" name="문건우"/>);
+        expect(utils.container).toMatchSnapshot();
     });
     it('renders username and name', () => {
-        const wrapper = mount(<Profile username="mun" name="문건우"/>);
-        expect(wrapper.props().username).toBe('mun');
-        expect(wrapper.props().name).toBe('문건우');
-
-        const boldElement = wrapper.find('b');
-        expect(boldElement.contains('mun')).toBe(true);
-        const spanElement = wrapper.find('span');
-        expect(spanElement.text()).toBe('(문건우)');
+        const utils = render(<Profile username="mun" name="문건우"/>);
+        utils.getByText('mun');
+        utils.getByText('(문건우)');
+        utils.getByText(/문/);
     });
 });
