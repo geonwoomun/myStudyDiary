@@ -12,5 +12,8 @@
   "devDependencies": {
     "@types/jest": "^25.1.2",
     "jest": "^25.1.0"
+  },
+  "dependencies": {
+    "enzyme-to-json": "^3.4.4"
   }
 }
