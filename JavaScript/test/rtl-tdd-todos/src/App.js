@@ -1,9 +1,9 @@
 import React from 'react';
-import TodoApp from './TodoApp';
+import UserProfile from './UserProfile';
 
 function App() {
   return (
-    <TodoApp/>
+    <UserProfile id={1}/>
   );
 }
 
