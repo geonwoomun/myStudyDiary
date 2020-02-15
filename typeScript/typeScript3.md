@@ -55,3 +55,31 @@
 
 제네릭 T의 타입을 number | string에 할당 가능한 타입으로 제한한다. 타입 T는 숫자 또는 문자열 타입만 가능하다. 배열은 number | string 타입에 할당 가능하지 않기 때문에 타입 에러가 발생한다.
 
+
+## 맵드 타입
+맵드(mapped) 타입을 이용하면 몇 가지 규칙으로 새로운 인터페이스를 만들 수 있다. 맵드 타입은 다음과 같이 기존 인터페이스의 모든 속성을 선택 속성 또는 읽기 전용으로 만들 때 주로 사용한다.
+
+    interface Person {
+        name: string,
+        age: number;
+    }
+    interface PersonOptional {
+        name?: string,
+        age?: number;
+    }
+    interface PersonReadOnly {
+        readonly name: string;
+        readonly age: number;
+    }
+
+맵드 타입은 in 키워드를 사용해서 정의한다. 다음은 두 개의 속성을 불타입으로 만드는 맵드 타입이다.
+
+    type T1 = {[K in 'prop1' | 'prop2']: boolean};
+    // {prop1: boolean; prop2: boolean;}
+
+다음은 입력된 인터페이스의 모든 속성을 불 타입 및 선택 속성으로 만들어주는 맵드 타입이다.
+
+    type MakeBoolean<T> = {[P in keyof T]?: boolean};
+    const pMap: MakeBoolean<Person> = {}
+    pMap.name = true;
+    pMap.age = false;
