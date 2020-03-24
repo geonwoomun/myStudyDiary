@@ -1,20 +1,36 @@
-const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     mode: 'development',
-    entry: './src/index.js',
-    output: {
-        filename: 'main.js',
-        path: path.resolve(__dirname, 'dist')
-    },
+    entry: './src/index.tsx',
+    // output: {
+    //     filename: 'main.js',
+    //     path: path.resolve(__dirname, 'dist')
+    // },
     devServer: {
-        port: 9000,
+        port: 3000,
         hot: true,
+        historyApiFallback: true,
+        inline: true,
+        publicPath: '/'
+    },
+    module: {
+        rules: [
+            {
+               test: /\.tsx?$/,
+               loader: 'awesome-typescript-loader' 
+            }
+        ]
+    },
+    resolve: {
+        extensions: ['.js','.jsx','.ts','.tsx']
     },
     plugins: [
+        new webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlugin({
-            template: 'index.html',
+            filename: 'index.html',
+            template: 'public/index.html',
         }),
     ],
 };
