@@ -1,11 +1,11 @@
-const mergeArray = (...arrays) => {
-    let result = []
-    for (let index= 0; index < arrays.length; index++){
-        const array = arrays[index];
-
-        result = [...result, ...array];
-    }
-    return result;
+function add(a, b) {
+  if (typeof a === 'number' && typeof b === 'number') {
+    return a + b;
+  } else {
+    return +a + +b;
+  }
 }
 
-console.log(mergeArray([1,2,3,4], [2,3,4,5], [4,5,6,7]));
+console.log(add("5", "16"));
+
+const a = [1,2,3,4];
