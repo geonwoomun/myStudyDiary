@@ -1,3 +1,10 @@
-let tuple: [string, number] = ['문건우', 26];
+enum Sports {
+    soccer = 1,
+    basketball,
+    baseball
+}
+const value1: Sports = Sports.soccer;
+const value2: Sports.basketball | Sports.baseball = 2;
 
-tuple = [123,"123"];
+console.log(Sports.soccer);
+console.log(Sports[1]);
