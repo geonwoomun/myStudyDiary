@@ -1,0 +1,29 @@
+{
+    "dresses": [
+        {
+            "kind" : "상의",
+            "size" : "large",
+            "brand": "brand"
+        },
+        {
+            "kind" : "상의",
+            "size" : "large",
+            "brand": "brand"
+        },
+        {
+            "kind" : "상의",
+            "size" : "large",
+            "brand": "brand"
+        },
+        {
+            "kind" : "상의",
+            "size" : "large",
+            "brand": "brand"
+        },  
+        {
+            "kind" : "상의",
+            "size" : "large",
+            "brand": "brand"
+        }
+    ]
+}
