@@ -10,7 +10,10 @@ export default class App {
         this.$target = $target
 
         // this.dashboard = new Sample($target);
+        this.init($target);
+    }
 
+    init($target) {
         new Todo($target);
     }
 }
